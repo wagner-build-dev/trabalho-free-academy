@@ -15,7 +15,7 @@ if (isset($_SESSION['carrinho'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Free Academy</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css?v=<?= time() ?>">
 </head>
 <body>
 <header class="header">
@@ -27,7 +27,6 @@ if (isset($_SESSION['carrinho'])) {
         <a class="nav-link" href="loja.php">Loja</a>
         <a class="nav-link" href="quem-somos.php">Quem Somos</a>
         <a class="nav-link" href="contato.php">Contato</a>
-        <a class="nav-link" href="meus_pedidos.php">Pedidos</a>
         <a class="btn-cart" href="carrinho.php">🛒 Carrinho
             <?php if ($quantidadeCarrinho > 0): ?>
                 <span class="cart-badge"><?php echo $quantidadeCarrinho; ?></span>
@@ -38,8 +37,13 @@ if (isset($_SESSION['carrinho'])) {
         <?php endif; ?>
         <?php if (isset($_SESSION['cliente'])): ?>
             <div class="user-info">
-                <span class="btn-user">👤 <?php echo htmlspecialchars(explode(' ', $_SESSION['cliente']['name'] ?? $_SESSION['cliente']['nome'] ?? 'Usuário')[0]); ?></span>
-                <a class="btn-logout" href="logout.php">↩ Sair</a>
+                <div class="user-dropdown">
+                    <span class="btn-user">👤 <?php echo htmlspecialchars(explode(' ', $_SESSION['cliente']['name'] ?? $_SESSION['cliente']['nome'] ?? 'Usuário')[0]); ?> ▾</span>
+                    <div class="dropdown-menu">
+                        <a href="meus_pedidos.php">📦 Meus Pedidos</a>
+                        <a href="logout.php" style="color:#ef4444;">↩ Sair</a>
+                    </div>
+                </div>
             </div>
         <?php else: ?>
             <a class="nav-link" href="login.php">Login / Cadastro</a>
